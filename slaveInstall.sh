@@ -25,7 +25,7 @@ sleep 10
 echo "-> Installing packages"
 yum update
 yum install -y git expr bc &> /dev/null 
-echo "-> Downloading natCP files..."
+echo "-> Downloading ECM files..."
 cd /tmp && git clone https://github.com/madeinearnest/container-manager
 mv /tmp/container-manager /tmp/slave
 chmod 700 /tmp/slave/*
