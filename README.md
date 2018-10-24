@@ -22,7 +22,7 @@ And of course ECM itself is open source project on GitHub.
 ECM requires a fresh install of CentOS 6 or 7.
 
 ```sh
-$ cd /tmp && wget https://raw.githubusercontent.com/madeinearnest/container-manager/master/slave/slaveInstall.sh --no-check-certificate 
+$ cd /tmp && wget https://raw.githubusercontent.com/madeinearnest/container-manager/master/slaveInstall.sh --no-check-certificate 
 $ bash /tmp/slaveInstall.sh
 ```
 
