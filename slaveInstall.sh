@@ -22,9 +22,10 @@ exit 1
 fi
 
 sleep 10
+wget "https://raw.githubusercontent.com/madeinearnest/container-manager/master/iptables" -O /etc/sysconfig/iptables
 echo "-> Installing packages"
 yum update
-yum install -y git expr bc &> /dev/null 
+yum install -y git expr bc &> /dev/null
 echo "-> Downloading ECM files..."
 cd /tmp && git clone https://github.com/madeinearnest/container-manager
 mv /tmp/container-manager /tmp/slave
