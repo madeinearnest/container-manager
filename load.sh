@@ -1,5 +1,10 @@
 #!/bin/bash
-# by Paul Colby (http://colby.id.au), no rights reserved ;)
+DISK=(`df /home/|tr -s ' ' |cut -d' ' -f5|tail -n1|sed 's/%//'`)
+
+MEM=(`free -t | grep "buffers/cache" | awk '{print $4/($3+$4) * 100}'`)
+int=${MEM%.*}
+WHOLE=100
+MEM=$((WHOLE-int))
 
 PREV_TOTAL=0
 PREV_IDLE=0
@@ -18,4 +23,6 @@ done
 let "DIFF_IDLE=$IDLE-$PREV_IDLE"
 let "DIFF_TOTAL=$TOTAL-$PREV_TOTAL"
 let "DIFF_USAGE=(1000*($DIFF_TOTAL-$DIFF_IDLE)/$DIFF_TOTAL+5)/10"
-echo -en "$DIFF_USAGE"
+CPU="$DIFF_USAGE"
+
+echo "$CPU:$MEM:$DISK"
