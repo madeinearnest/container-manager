@@ -55,7 +55,6 @@ echo '#ECM' >> /etc/sysctl.conf
 echo 'net.ipv4.conf.default.forwarding=1' >> /etc/sysctl.conf
 echo 'net.ipv4.conf.all.forwarding=1' >> /etc/sysctl.conf
 /sbin/iptables-restore < /etc/ecm/ecm-iptables-init-script
-iptables -t nat -A POSTROUTING -o `/sbin/ip addr | awk '/state UP/ {print $2}' | sed s/://g` -j MASQUERADE
 echo "-> Setup NGINX"
 yum -y install epel-release
 yum -y install nginx
@@ -71,3 +70,5 @@ echo 'remote ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 echo "-> Slave node configured. Here are the slave details:"
 echo "-> Access key: $newPassword"
 echo "-> Note: A reboot is required. Failiure to do so will prevent the proper installation of the OpenVZ kernel."
+echo "-> After reboot, please execute the following command"
+echo "iptables -t nat -A POSTROUTING -o `/sbin/ip addr | awk '/state UP/ {print $2}' | sed s/://g` -j MASQUERADE"
