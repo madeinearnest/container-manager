@@ -65,8 +65,6 @@ rpm -ivh https://rhel6.iuscommunity.org/ius-release.rpm
 yum --enablerepo=ius install git python27 python27-devel python27-pip python27- setuptools python27-virtualenv -y
 cd /etc/ecm
 git clone https://github.com/letsencrypt/letsencrypt
-./letsencrypt-auto certonly --webroot -w /var/www/example/ -d example.com
-
 /etc/init.d/nginx start
 echo -e "$newPassword\n$newPassword" | passwd remote
 echo 'remote ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
