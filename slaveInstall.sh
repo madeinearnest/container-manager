@@ -59,6 +59,13 @@ iptables -t nat -A POSTROUTING -o `/sbin/ip addr | awk '/state UP/ {print $2}' |
 echo "-> Setup NGINX"
 yum -y install epel-release
 yum -y install nginx
+echo "-> Install Lets Encrypt"
+yum -y install epel-release mod_ssl
+rpm -ivh https://rhel6.iuscommunity.org/ius-release.rpm
+yum --enablerepo=ius install git python27 python27-devel python27-pip python27- setuptools python27-virtualenv -y
+cd /etc/ecm
+git clone https://github.com/letsencrypt/letsencrypt
+./letsencrypt-auto certonly --webroot -w /var/www/example/ -d example.com
 
 /etc/init.d/nginx start
 echo -e "$newPassword\n$newPassword" | passwd remote
