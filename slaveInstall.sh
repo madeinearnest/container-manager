@@ -22,7 +22,8 @@ exit 1
 fi
 
 sleep 10
-wget "https://raw.githubusercontent.com/madeinearnest/container-manager/master/iptables" -O /etc/sysconfig/ecm-iptables-init-script
+mkdir /etc/ecm
+wget "https://raw.githubusercontent.com/madeinearnest/container-manager/master/iptables" -O /etc/ecm/ecm-iptables-init-script
 echo "-> Installing packages"
 yum update
 yum install -y git expr bc &> /dev/null
@@ -46,6 +47,20 @@ groupadd consoleusers
 echo '%consoleusers ALL=NOPASSWD:/sbin/vzenter' >> /etc/sudoers
 sed -i 's/VE_LAYOUT=ploop/VE_LAYOUT=simfs/g' /etc/vz/vz.conf
 chmod 755 /sbin/vzenter
+echo "->Configuring iptables"
+echo 'options nf_conntrack ip_conntrack_disable_ve0=0' > /etc/modprobe.d/openvz.conf
+echo '' >> /etc/sysctl.conf
+echo '' >> /etc/sysctl.conf
+echo '#ECM' >> /etc/sysctl.conf
+echo 'net.ipv4.conf.default.forwarding=1' >> /etc/sysctl.conf
+echo 'net.ipv4.conf.all.forwarding=1' >> /etc/sysctl.conf
+/sbin/iptables-restore < /etc/ecm/ecm-iptables-init-script
+iptables -t nat -A POSTROUTING -o `/sbin/ip addr | awk '/state UP/ {print $2}' | sed s/://g` -j MASQUERADE
+echo "-> Setup NGINX"
+yum -y install epel-release
+yum -y install nginx
+
+/etc/init.d/nginx start
 echo -e "$newPassword\n$newPassword" | passwd remote
 echo 'remote ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 echo "-> Slave node configured. Here are the slave details:"
