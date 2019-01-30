@@ -65,6 +65,10 @@ yum --enablerepo=ius install git python27 python27-devel python27-pip python27- 
 cd /etc/ecm
 git clone https://github.com/letsencrypt/letsencrypt
 /etc/init.d/nginx start
+echo "-> Configuring IP Block"
+yum -y install ipset
+ipset create publictrackers hash:net
+iptables -I OUTPUT -m set --match-set publictrackers dst -j DROP
 echo -e "$newPassword\n$newPassword" | passwd remote
 echo 'remote ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 echo "-> Slave node configured. Here are the slave details:"
