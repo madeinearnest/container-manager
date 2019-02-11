@@ -26,7 +26,7 @@ $ cd /tmp && wget https://raw.githubusercontent.com/madeinearnest/container-mana
 $ bash /tmp/slaveInstall.sh
 ```
 
-Copy the slave access key (this is only shown once) and is required to link it back up to the master server.
+Copy the slave access key & ip tables configuration script (this is only shown once) and is required to link it back up to the master server.
 
 ```sh
 $ reboot
