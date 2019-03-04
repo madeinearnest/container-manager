@@ -23,7 +23,7 @@ fi
 
 sleep 10
 mkdir /etc/ecm
-wget "https://raw.githubusercontent.com/madeinearnest/container-manager/master/iptables" -O /etc/ecm/ecm-iptables-init-script
+wget "https://raw.githubusercontent.com/madeinearnest/container-manager/master/ecm-iptables-script" -O /etc/ecm/ecm-iptables-init-script
 echo "-> Installing packages"
 yum update
 yum install -y git expr bc &> /dev/null
