@@ -72,6 +72,8 @@ yum -y install ipset
 ipset create publictrackers hash:net
 iptables -I FORWARD -m set --match-set publictrackers dst -j DROP
 echo -e "$newPassword\n$newPassword" | passwd remote
+echo 'Downloading container template'
+wget https://earnest.ams3.digitaloceanspaces.com/seed/templates/ubuntu-16.04-x86_64-swizzin.tar.gz -O /var/lib/vz/template/cache/ubuntu-16.04-x86_64-swizzin.tar.gz
 echo 'remote ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 echo "-> Slave node configured. Here are the slave details:"
 echo "-> Access key: $newPassword"
