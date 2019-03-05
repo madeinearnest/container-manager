@@ -23,6 +23,8 @@ fi
 
 sleep 10
 mkdir /etc/ecm
+touch /etc/ecm/seedit2.conf
+chmod 777 /etc/ecm/seedit2.conf
 wget "https://raw.githubusercontent.com/madeinearnest/container-manager/master/ecm-iptables-script" -O /etc/ecm/ecm-iptables-init-script
 echo "-> Installing packages"
 yum update
