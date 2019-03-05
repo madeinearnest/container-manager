@@ -77,6 +77,8 @@ iptables -I FORWARD -m set --match-set publictrackers dst -j DROP
 echo -e "$newPassword\n$newPassword" | passwd remote
 echo 'Downloading container template'
 wget https://earnest.ams3.digitaloceanspaces.com/seed/templates/ubuntu-16.04-x86_64-swizzin.tar.gz -O /var/lib/vz/template/cache/ubuntu-16.04-x86_64-swizzin.tar.gz
+sed -i "s#/vz/private#/data/seedboxes/private#g" /etc/vz/vz.conf
+sed -i "s#/vz/root#/data/seedboxes/root#g" /etc/vz/vz.conf
 echo 'remote ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 echo "-> Slave node configured. Here are the slave details:"
 echo "-> Access key: $newPassword"
