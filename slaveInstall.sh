@@ -49,8 +49,9 @@ groupadd consoleusers
 echo '%consoleusers ALL=NOPASSWD:/sbin/vzenter' >> /etc/sudoers
 sed -i 's/VE_LAYOUT=ploop/VE_LAYOUT=simfs/g' /etc/vz/vz.conf
 chmod 755 /sbin/vzenter
-mv /var/lib/vz /data/vz
-ln -s /data/vz /var/lib/vz
+mkdir /data/seedboxes
+mkdir /data/seedboxes/private
+mkdir /data/seedboxes/root
 echo "->Configuring iptables"
 echo 'options nf_conntrack ip_conntrack_disable_ve0=0' > /etc/modprobe.d/openvz.conf
 echo '' >> /etc/sysctl.conf
