@@ -26,6 +26,8 @@ mkdir /etc/ecm
 touch /etc/ecm/seedit2.conf
 chmod 777 /etc/ecm/seedit2.conf
 wget "https://raw.githubusercontent.com/madeinearnest/container-manager/master/ecm-iptables-script" -O /etc/ecm/ecm-iptables-init-script
+wget "https://raw.githubusercontent.com/madeinearnest/container-manager/master/init-wildcard-ssl" -O /etc/ecm/init-wildcard-ssl
+chmod +x /etc/ecm/init-wildcard-ssl
 echo "-> Installing packages"
 yum update
 yum install -y git expr bc &> /dev/null
