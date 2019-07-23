@@ -81,6 +81,13 @@ echo 'Downloading container template'
 wget https://earnest.ams3.digitaloceanspaces.com/seed/templates/ubuntu-16.04-x86_64-swizzin.tar.gz -O /var/lib/vz/template/cache/ubuntu-16.04-x86_64-swizzin.tar.gz
 yum -y install cairo-devel libxml2-devel pango-devel pango libpng-devel freetype freetype-devel libart_lgpl-devel
 yum -y install rrdtool-perl
+mkdir /opt/bandwidth
+mkdir /opt/bandwidth/images
+curl -o /opt/bandwidth/getTraffic.pl https://my.seedit4.me/storage/scripts/server/getTraffic.pl
+crontab -l > cronbk
+echo "*/5 * * * * /usr/bin/perl /opt/bandwidth/getTraffic.pl > /dev/null 2>&1" >> cronbk
+crontab cronbk
+rm -rf cronbk
 sed -i "s#/vz/private#/data/seedboxes/private#g" /etc/vz/vz.conf
 sed -i "s#/vz/root#/data/seedboxes/root#g" /etc/vz/vz.conf
 echo 'remote ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
